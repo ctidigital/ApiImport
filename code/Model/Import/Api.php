@@ -63,6 +63,7 @@ class Danslo_ApiImport_Model_Import_Api
         $this->_setBehavior($behavior ? $behavior : Mage_ImportExport_Model_Import::BEHAVIOR_REPLACE);
 
         $this->_api->getDataSourceModel()->setEntities($entities);
+        $result = false;
         try {
             $result = $this->_api->importSource();
             $errorsCount = $this->_api->getErrorsCount();
@@ -479,5 +480,15 @@ class Danslo_ApiImport_Model_Import_Api
         } catch(Mage_Core_Exception $e) {
             $this->_fault('invalid_behavior', $e->getMessage());
         }
+    }
+
+    /**
+     * Gets the error messages associated with the import
+     *
+     * @return mixed
+     */
+    public function getErrors()
+    {
+        return $this->_api->getErrors();
     }
 }
